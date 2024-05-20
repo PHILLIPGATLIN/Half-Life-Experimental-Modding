@@ -65,4 +65,9 @@ void LinkUserMessages()
 	gmsgStatusValue = REG_USER_MSG("StatusValue", 3);
 
 	gmsgWeapons = REG_USER_MSG("Weapons", 8);
+
+	// PG
+	gmsgManaGet = REG_USER_MSG("ManaGet", 3); // new: 8 January 2024 by Phillip Gatlin aka The White Lion
+	gmsgShowText = REG_USER_MSG("ShowText", -1);
+	// PG
 }

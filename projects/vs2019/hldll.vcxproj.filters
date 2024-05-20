@@ -46,6 +46,12 @@
     <Filter Include="Header Files\public">
       <UniqueIdentifier>{ccda2445-0302-44ae-a537-be89f5811329}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\dlls\mod">
+      <UniqueIdentifier>{9df0b0e7-1869-4faf-a57a-4305d60c24a8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\dlls\mod">
+      <UniqueIdentifier>{e73660f0-b8ef-473f-a6bf-b8b83e032308}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\aflock.cpp">
@@ -366,6 +372,12 @@
     <ClCompile Include="..\..\public\interface.cpp">
       <Filter>Source Files\public</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\dlls\mod\mana.cpp">
+      <Filter>Source Files\dlls\mod</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\dlls\mod\ReadingText.cpp">
+      <Filter>Source Files\dlls\mod</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\dlls\doors.h">
@@ -619,6 +631,12 @@
     </ClInclude>
     <ClInclude Include="..\..\public\interface.h">
       <Filter>Header Files\public</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\mod\mana.h">
+      <Filter>Header Files\dlls\mod</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\dlls\mod\manatypes.h">
+      <Filter>Source Files\dlls\mod</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

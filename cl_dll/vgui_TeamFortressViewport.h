@@ -36,6 +36,7 @@
 #define MENU_CLASSHELP2 			7
 #define MENU_REPEATHELP 			8
 #define MENU_SPECHELP				9
+#define MENU_TEXT				   10	// new 18 January 2024 added by PG
 using namespace vgui;
 
 class Cursor;
@@ -608,6 +609,10 @@ public:
 	bool MsgFunc_SpecFade( const char *pszName, int iSize, void *pbuf );	
 	bool MsgFunc_ResetFade( const char *pszName, int iSize, void *pbuf );	
 
+	// PG
+	bool MsgFunc_ShowText(const char* pszName, int iSize, void* pbuf);		// new 18 January 2024 added by PG
+	// PG
+
 	// Input
 	bool SlotInput( int iSlot );
 
@@ -630,6 +635,9 @@ public:
 	ScorePanel		*m_pScoreBoard;
 	SpectatorPanel *		m_pSpectatorPanel;
 	char			m_szServerName[ MAX_SERVERNAME_LENGTH ];
+
+private:
+	char TextTitle[MAX_TEXTTITLE_LENGTH];
 };
 
 //============================================================
@@ -781,6 +789,7 @@ public:
 #define SHOW_CLASSDESC		2
 #define SHOW_MOTD			3
 #define SHOW_SPECHELP		4
+#define SHOW_TEXT			5	// new 18 January 2024 added by PG
 
 class CMenuHandler_TextWindow : public ActionSignal
 {

@@ -110,10 +110,10 @@ bool CHudBattery::Draw(float flTime)
 
 	ScaleColors(r, g, b, a);
 
-	int iOffset = (m_prc1->bottom - m_prc1->top) / 6;
+	int iOffset = (m_prc1->bottom - m_prc1->top) / 6; // int iOffset = (m_prc1->bottom - m_prc1->top) / 6;
 
 	y = ScreenHeight - gHUD.m_iFontHeight - gHUD.m_iFontHeight / 2;
-	x = ScreenWidth / 4;
+	x = ScreenWidth / 4; // position of little armor man icon
 
 	// make sure we have the right sprite handles
 	if (0 == m_hSprite1)
@@ -130,7 +130,7 @@ bool CHudBattery::Draw(float flTime)
 		SPR_DrawAdditive(0, x, y - iOffset + (rc.top - m_prc2->top), &rc);
 	}
 
-	x += (m_prc1->right - m_prc1->left);
+	x += (m_prc1->right - m_prc1->left); // offset from armor man icon to draw armor value numbers
 	x = gHUD.DrawHudNumber(x, y, DHN_3DIGITS | DHN_DRAWZERO, m_iBat, r, g, b);
 
 	return true;

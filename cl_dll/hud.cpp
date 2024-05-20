@@ -367,11 +367,14 @@ void CHud::Init()
 	m_AmmoSecondary.Init();
 	m_TextMessage.Init();
 	m_StatusIcons.Init();
+	m_Manas.Init(); // New 8 January 2024 by PG
+	m_TextMenu.Init(); // New 21 January 2024 by PG
 	GetClientVoiceMgr()->Init(&g_VoiceStatusHelper, (vgui::Panel**)&gViewPort);
 
 	m_Menu.Init();
 
 	MsgFunc_ResetHUD(0, 0, NULL);
+
 }
 
 // CHud destructor
@@ -498,6 +501,7 @@ void CHud::VidInit()
 	m_iFontHeight = m_rgrcRects[m_HUD_number_0].bottom - m_rgrcRects[m_HUD_number_0].top;
 
 	m_Ammo.VidInit();
+
 	m_Health.VidInit();
 	m_Spectator.VidInit();
 	m_Geiger.VidInit();
@@ -512,6 +516,8 @@ void CHud::VidInit()
 	m_AmmoSecondary.VidInit();
 	m_TextMessage.VidInit();
 	m_StatusIcons.VidInit();
+	m_Manas.VidInit();	// New 8 January 2024 by PG
+	m_TextMenu.VidInit(); // New 21 January 2024 by PG
 	GetClientVoiceMgr()->VidInit();
 }
 

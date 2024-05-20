@@ -2870,6 +2870,12 @@ void CBasePlayer::Spawn()
 	m_pClientActiveItem = NULL;
 	m_iClientBattery = -1;
 
+	m_uiClientManaRed = 1;
+	m_uiClientManaOrange = 1;
+	m_uiClientManaYellow = 1;
+	m_uiClientManaGreen = 1;
+	m_uiClientManaBlue = 1;
+
 	// reset all ammo values to 0
 	for (int i = 0; i < MAX_AMMO_SLOTS; i++)
 	{
@@ -2880,6 +2886,13 @@ void CBasePlayer::Spawn()
 	m_lastx = m_lasty = 0;
 
 	m_flNextChatTime = gpGlobals->time;
+
+	// Reset mana quantities to 0 --PG
+	m_uiManaRed = 0;
+	m_uiManaOrange = 0;
+	m_uiManaYellow = 0;
+	m_uiManaGreen = 0;
+	m_uiManaBlue = 0;
 
 	g_pGameRules->PlayerSpawn(this);
 }
@@ -3705,7 +3718,61 @@ bool CBasePlayer::AddPlayerItem(CBasePlayerItem* pItem)
 	return false;
 }
 
+void CBasePlayer::AddPlayerMana(CItemMana* pMana)
+{
+	// add the mana to the player and then tell the client how much mana they have
+	switch (pMana->m_eManaType)
+	{
+	case e_Mana_Red:
+			m_uiManaRed += 1;
+			MESSAGE_BEGIN(MSG_ONE, gmsgManaGet, NULL, pev);
+			WRITE_BYTE((int)pMana->m_eManaType);
+			WRITE_SHORT(m_uiManaRed);
+			MESSAGE_END();
+			break;
+		case e_Mana_Orange:
+			m_uiManaOrange += 1;
+			MESSAGE_BEGIN(MSG_ONE, gmsgManaGet, NULL, pev);
+			WRITE_BYTE((int)pMana->m_eManaType);
+			WRITE_SHORT(m_uiManaOrange);
+			MESSAGE_END();
+			break;
+		case e_Mana_Yellow:
+			m_uiManaYellow += 1;
+			MESSAGE_BEGIN(MSG_ONE, gmsgManaGet, NULL, pev);
+			WRITE_BYTE((int)pMana->m_eManaType);
+			WRITE_SHORT(m_uiManaYellow);
+			MESSAGE_END();
+			break;
+		case e_Mana_Green:
+			m_uiManaGreen += 1;
+			MESSAGE_BEGIN(MSG_ONE, gmsgManaGet, NULL, pev);
+			WRITE_BYTE((int)pMana->m_eManaType);
+			WRITE_SHORT(m_uiManaGreen);
+			MESSAGE_END();
+			break;
+		case e_Mana_Blue:
+			m_uiManaBlue += 1;
+			MESSAGE_BEGIN(MSG_ONE, gmsgManaGet, NULL, pev);
+			WRITE_BYTE((int)pMana->m_eManaType);
+			WRITE_SHORT(m_uiManaBlue);
+			MESSAGE_END();
+			break;
+		default:
+			break;
+	}
 
+	return;
+}
+
+void CBasePlayer::SendTitleName(char* textTitle)
+{
+	MESSAGE_BEGIN(MSG_ONE, gmsgShowText, NULL, pev);
+	WRITE_STRING(textTitle);
+	MESSAGE_END();
+
+	return;
+}
 
 bool CBasePlayer::RemovePlayerItem(CBasePlayerItem* pItem)
 {
@@ -4023,6 +4090,54 @@ void CBasePlayer::UpdateClientData()
 		WRITE_SHORT((int)pev->armorvalue);
 		MESSAGE_END();
 	}
+
+	// PG
+	if (m_uiManaRed != m_uiClientManaRed)
+	{
+		m_uiClientManaRed = m_uiManaRed;
+
+		MESSAGE_BEGIN( MSG_ONE, gmsgManaGet, NULL, pev );
+			WRITE_BYTE(e_Mana_Red);
+			WRITE_SHORT(m_uiManaRed);
+		MESSAGE_END();
+	}
+
+	if (m_uiManaOrange != m_uiClientManaOrange)
+	{
+		m_uiClientManaOrange = m_uiManaOrange;
+		MESSAGE_BEGIN(MSG_ONE, gmsgManaGet, NULL, pev);
+			WRITE_BYTE( e_Mana_Orange);
+			WRITE_SHORT(m_uiManaOrange);
+		MESSAGE_END();
+	}
+
+	if (m_uiManaYellow != m_uiClientManaYellow)
+	{
+		m_uiClientManaYellow = m_uiManaYellow;
+		MESSAGE_BEGIN(MSG_ONE, gmsgManaGet, NULL, pev);
+			WRITE_BYTE(e_Mana_Yellow);
+			WRITE_SHORT(m_uiManaYellow);
+		MESSAGE_END();
+	}
+
+	if (m_uiManaGreen != m_uiClientManaGreen)
+	{
+		m_uiClientManaGreen = m_uiManaGreen;
+		MESSAGE_BEGIN(MSG_ONE, gmsgManaGet, NULL, pev);
+			WRITE_BYTE(e_Mana_Green);
+			WRITE_SHORT(m_uiManaGreen);
+		MESSAGE_END();
+	}
+
+	if (m_uiManaBlue != m_uiClientManaBlue)
+	{
+		m_uiClientManaBlue = m_uiManaBlue;
+		MESSAGE_BEGIN(MSG_ONE, gmsgManaGet, NULL, pev);
+			WRITE_BYTE(e_Mana_Blue);
+			WRITE_SHORT(m_uiManaBlue);
+		MESSAGE_END();
+	}
+	// PG
 
 	if (m_WeaponBits != m_ClientWeaponBits)
 	{

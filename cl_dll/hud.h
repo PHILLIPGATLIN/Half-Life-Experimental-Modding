@@ -58,6 +58,7 @@ typedef struct cvar_s cvar_t;
 #define MAX_PLAYER_NAME_LENGTH 32
 
 #define MAX_MOTD_LENGTH 1536
+#define MAX_TEXTTITLE_LENGTH 64
 
 //
 //-----------------------------------------------------
@@ -66,10 +67,12 @@ class CHudBase
 {
 public:
 	POSITION m_pos;
+	int m_iWidth, m_iHeight;	// new 16 January 2024 by PG
 	int m_type;
 	int m_iFlags; // active, moving,
 	virtual ~CHudBase() {}
-	virtual bool Init() { return false; }
+	// CHudBase::Init() modified by PG 16 January 2024
+	virtual bool Init() { return false; };
 	virtual bool VidInit() { return false; }
 	virtual bool Draw(float flTime) { return false; }
 	virtual void Think() {}
@@ -476,10 +479,54 @@ private:
 	icon_sprite_t m_IconList[MAX_ICONSPRITES];
 };
 
-//
+// New: 8 January 2024 by PG
 //-----------------------------------------------------
 //
 
+class CHudMana : public CHudBase
+{
+public:
+	bool Init(void) override;
+	bool VidInit(void) override;
+	bool Draw(float flTime) override;
+
+	bool MsgFunc_ManaGet(const char* pszName, int iSize, void* pbuf);
+
+	int ManaType;
+	unsigned short ManaAmount_R;
+	unsigned short ManaAmount_O;
+	unsigned short ManaAmount_Y;
+	unsigned short ManaAmount_G;
+	unsigned short ManaAmount_B;
+};
+
+#include <unordered_map>
+
+// New: 21 January 2024 by PG
+//-----------------------------------------------------
+//
+class CHudTextMenu : public CHudBase
+{
+public:
+	bool Init(void) override;
+	bool VidInit(void) override;
+	bool Draw(float flTime) override;
+	bool MsgFunc_ShowText(const char* pszName, int iSize, void* pbuf);
+
+	void CopyTextTitle(char* pArray);
+
+	char* GetText(char* titleName);
+
+private:
+	char TextTitle[MAX_TEXTTITLE_LENGTH];
+	// new 20 January 2024 -- PG
+	std::unordered_map<std::string, char*> CachedTexts;
+	// PG
+};
+
+//
+//-----------------------------------------------------
+//
 
 class CHud
 {
@@ -571,6 +618,8 @@ public:
 	CHudAmmoSecondary m_AmmoSecondary;
 	CHudTextMessage m_TextMessage;
 	CHudStatusIcons m_StatusIcons;
+	CHudMana m_Manas; // New 8 January 2024 by PG
+	CHudTextMenu m_TextMenu; // New 21 January 2024 by PG
 
 	void Init();
 	void VidInit();

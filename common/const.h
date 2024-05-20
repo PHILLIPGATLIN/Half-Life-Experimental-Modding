@@ -693,27 +693,27 @@ enum
 enum
 {
 	kRenderFxNone = 0,
-	kRenderFxPulseSlow,
-	kRenderFxPulseFast,
-	kRenderFxPulseSlowWide,
-	kRenderFxPulseFastWide,
-	kRenderFxFadeSlow,
-	kRenderFxFadeFast,
-	kRenderFxSolidSlow,
-	kRenderFxSolidFast,
-	kRenderFxStrobeSlow,
-	kRenderFxStrobeFast,
-	kRenderFxStrobeFaster,
-	kRenderFxFlickerSlow,
-	kRenderFxFlickerFast,
-	kRenderFxNoDissipation,
-	kRenderFxDistort,		  // Distort/scale/translate flicker
-	kRenderFxHologram,		  // kRenderFxDistort + distance fade
-	kRenderFxDeadPlayer,	  // kRenderAmt is the player index
-	kRenderFxExplode,		  // Scale up really big!
-	kRenderFxGlowShell,		  // Glowing Shell
-	kRenderFxClampMinScale,	  // Keep this sprite from getting very small (SPRITES only!)
-	kRenderFxLightMultiplier, //CTM !!!CZERO added to tell the studiorender that the value in iuser2 is a lightmultiplier
+	kRenderFxPulseSlow, // 1
+	kRenderFxPulseFast, // 2
+	kRenderFxPulseSlowWide, // 3
+	kRenderFxPulseFastWide, // 4
+	kRenderFxFadeSlow, // 5
+	kRenderFxFadeFast, // 6
+	kRenderFxSolidSlow, // 7
+	kRenderFxSolidFast, // 8
+	kRenderFxStrobeSlow, // 9
+	kRenderFxStrobeFast, // 10
+	kRenderFxStrobeFaster, // 11
+	kRenderFxFlickerSlow, // 12
+	kRenderFxFlickerFast, // 13
+	kRenderFxNoDissipation, // 14
+	kRenderFxDistort,		  // 15 Distort/scale/translate flicker
+	kRenderFxHologram,		  // 16 kRenderFxDistort + distance fade
+	kRenderFxDeadPlayer,	  // 17 kRenderAmt is the player index
+	kRenderFxExplode,		  // 18 Scale up really big!
+	kRenderFxGlowShell,		  // 19 Glowing Shell
+	kRenderFxClampMinScale,	  // 20 Keep this sprite from getting very small (SPRITES only!)
+	kRenderFxLightMultiplier, // 21 CTM !!!CZERO added to tell the studiorender that the value in iuser2 is a lightmultiplier
 };
 
 #define _DEF_BYTE_

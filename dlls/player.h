@@ -16,7 +16,7 @@
 #pragma once
 
 #include "pm_materials.h"
-
+#include "mod/mana.h"
 
 #define PLAYER_FATAL_FALL_SPEED 1024															  // approx 60 feet
 #define PLAYER_MAX_SAFE_FALL_SPEED 580															  // approx 20 feet
@@ -178,6 +178,11 @@ public:
 	int m_iClientHideHUD;
 	int m_iFOV;		  // field of view
 	int m_iClientFOV; // client's known FOV
+	uint16 m_uiClientManaRed; // last known mana value for client
+	uint16 m_uiClientManaOrange;
+	uint16 m_uiClientManaYellow;
+	uint16 m_uiClientManaGreen;
+	uint16 m_uiClientManaBlue;
 	// usable player items
 	CBasePlayerItem* m_rgpPlayerItems[MAX_ITEM_TYPES];
 	CBasePlayerItem* m_pActiveItem;
@@ -192,6 +197,14 @@ public:
 	// shared ammo slots
 	int m_rgAmmo[MAX_AMMO_SLOTS];
 	int m_rgAmmoLast[MAX_AMMO_SLOTS];
+
+	// 7 January 2024 - Phillip Gatlin aka The White Lion
+	// variables to store mana quantities
+	unsigned short m_uiManaRed;
+	unsigned short m_uiManaOrange;
+	unsigned short m_uiManaYellow;
+	unsigned short m_uiManaGreen;
+	unsigned short m_uiManaBlue;
 
 	Vector m_vecAutoAim;
 	bool m_fOnTarget;
@@ -279,6 +292,8 @@ public:
 	void AddPoints(int score, bool bAllowNegativeScore) override;
 	void AddPointsToTeam(int score, bool bAllowNegativeScore) override;
 	bool AddPlayerItem(CBasePlayerItem* pItem) override;
+	void AddPlayerMana(CItemMana* pMana); // 8 January 2024 added by Phillip Gatlin aka The White Lion
+	void SendTitleName(char* textTitle); // 22 January 2024 PG
 	bool RemovePlayerItem(CBasePlayerItem* pItem) override;
 	void DropPlayerItem(char* pszItemName);
 	bool HasPlayerItem(CBasePlayerItem* pCheckItem);

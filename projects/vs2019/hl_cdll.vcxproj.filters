@@ -64,6 +64,9 @@
     <Filter Include="Source Files\cl_dll\particleman">
       <UniqueIdentifier>{7085339d-2b33-4cdf-846c-0e4c7d33add8}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\cl_dll\mod">
+      <UniqueIdentifier>{6ae7fa4c-3131-44b3-88a9-4ba820008d42}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\..\dlls\crossbow.cpp">
@@ -320,6 +323,12 @@
     </ClCompile>
     <ClCompile Include="..\..\cl_dll\particleman\CBaseParticle.cpp">
       <Filter>Source Files\cl_dll\particleman</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\cl_dll\mod\hud_mana.cpp">
+      <Filter>Source Files\cl_dll\mod</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\cl_dll\mod\hud_textmenu.cpp">
+      <Filter>Source Files\cl_dll\mod</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -649,6 +649,7 @@ void TeamFortressViewport::Initialize()
 	}
 
 	App::getInstance()->setCursorOveride(App::getInstance()->getScheme()->getCursor(Scheme::scu_none));
+	
 }
 
 //-----------------------------------------------------------------------------
@@ -1432,6 +1433,11 @@ CMenuPanel* TeamFortressViewport::CreateTextWindow(int iTextToShow)
 			cText = pfile;
 		}
 	}
+	else if (iTextToShow == SHOW_TEXT)
+	{
+		strncpy(cTitle, TextTitle, MAX_TITLE_LENGTH);
+		cText = gHUD.m_TextMenu.GetText(&cTitle[0]);
+	}
 
 	// if we're in the game (ie. have selected a class), flag the menu to be only grayed in the dialog box, instead of full screen
 	CMenuPanel* pMOTDPanel = CMessageWindowPanel_Create(cText, cTitle, g_iPlayerClass == PC_UNDEFINED, false, 0, 0, ScreenWidth, ScreenHeight);
@@ -1495,6 +1501,9 @@ void TeamFortressViewport::ShowVGUIMenu(int iMenu)
 		break;
 	case MENU_CLASS:
 		pNewMenu = ShowClassMenu();
+		break;
+	case MENU_TEXT:
+		pNewMenu = CreateTextWindow(SHOW_TEXT);
 		break;
 
 	default:
@@ -2150,3 +2159,17 @@ bool TeamFortressViewport::MsgFunc_SpecFade(const char* pszName, int iSize, void
 
 	return true;
 }
+
+// PG
+bool TeamFortressViewport::MsgFunc_ShowText(const char* pszName, int iSize, void* pbuf) // new 18 January 2024
+{
+	gHUD.m_TextMenu.CopyTextTitle(&TextTitle[0]);
+
+	if (strcmp(TextTitle, "\0") == 0)
+		return false;
+
+	ShowVGUIMenu(MENU_TEXT);
+
+	return true;
+}
+// PG

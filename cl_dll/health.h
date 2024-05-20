@@ -65,6 +65,10 @@ private:
 
 	DAMAGE_IMAGE m_dmg[NUM_DMG_TYPES];
 	int m_bitsDamage;
+	int HealthWidth;
+	int CrossWidth;
+	int CrossHeight;
+	int HealthHeight;
 	bool DrawPain(float fTime);
 	bool DrawDamage(float fTime);
 	void CalcDamageDirection(Vector vecFrom);

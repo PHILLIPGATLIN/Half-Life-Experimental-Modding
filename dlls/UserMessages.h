@@ -55,4 +55,10 @@ inline int gmsgStatusValue = 0;
 
 inline int gmsgWeapons = 0;
 
+// New: 8 January 2024 by Phillip Gatlin aka The White Lion
+// this is supposed to be the message for mana pickups
+inline int gmsgManaGet = 0;
+inline int gmsgShowText = 0;
+// PG
+
 void LinkUserMessages();
