@@ -118,6 +118,12 @@ TYPEDESCRIPTION CBasePlayer::m_playerSaveData[] =
 
 		DEFINE_FIELD(CBasePlayer, m_flStartCharge, FIELD_TIME),
 
+		DEFINE_FIELD(CBasePlayer, m_uiManaRed, FIELD_SHORT),
+		DEFINE_FIELD(CBasePlayer, m_uiManaOrange, FIELD_SHORT),
+		DEFINE_FIELD(CBasePlayer, m_uiManaYellow, FIELD_SHORT),
+		DEFINE_FIELD(CBasePlayer, m_uiManaGreen, FIELD_SHORT),
+		DEFINE_FIELD(CBasePlayer, m_uiManaBlue, FIELD_SHORT),
+
 		//DEFINE_FIELD( CBasePlayer, m_fDeadTime, FIELD_FLOAT ), // only used in multiplayer games
 		//DEFINE_FIELD( CBasePlayer, m_fGameHUDInitialized, FIELD_INTEGER ), // only used in multiplayer games
 		//DEFINE_FIELD( CBasePlayer, m_flStopExtraSoundTime, FIELD_TIME ),
