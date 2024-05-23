@@ -79,6 +79,7 @@ public:
 	Vector BodyTarget(const Vector& posSrc) override;
 	void PainSound() override;
 	void DeathSound() override;
+	void Killed(entvars_t* pevAttacker, int iGib) override; // PG 23 May 2024
 	void IdleSound() override;
 	void AlertSound() override;
 	void PrescheduleThink() override;
@@ -459,6 +460,16 @@ void CHeadCrab::PainSound()
 void CHeadCrab::DeathSound()
 {
 	EMIT_SOUND_DYN(edict(), CHAN_VOICE, RANDOM_SOUND_ARRAY(pDeathSounds), GetSoundVolue(), ATTN_IDLE, 0, GetVoicePitch());
+}
+
+// Killed
+void CHeadCrab::Killed(entvars_t* pevAttacker, int iGib)
+{
+	CBaseMonster::Killed(pevAttacker, iGib);
+	
+	Create("item_mana_yellow", pev->origin, pev->angles);
+
+	return;
 }
 
 Schedule_t* CHeadCrab::GetScheduleOfType(int Type)

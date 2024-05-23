@@ -1,3 +1,7 @@
+/*****************************************
+	OBSOLETE - see items.cpp for new code
+******************************************/
+
 /*
 	6 January 2024 - Phillip Gatlin aka The White Lion
 	This file implements mana as pickup items for the player.
@@ -9,7 +13,7 @@
 #include "player.h"
 #include "mod/mana.h"
 
-LINK_ENTITY_TO_CLASS(item_mana, CItemMana);
+//LINK_ENTITY_TO_CLASS(item_mana, CItemMana);
 
 bool CItemMana::KeyValue(KeyValueData* pkvd)
 {
@@ -46,8 +50,8 @@ void CItemMana::Touch(CBaseEntity* pOther)
 	CBasePlayer* pPlayer = (CBasePlayer*)pOther;
 
 	EMIT_SOUND(this->edict(), CHAN_ITEM, "fvox/blip.wav", 1, ATTN_NORM);
-	pPlayer->AddPlayerMana(this);
-	m_pManaSprite->TurnOff();
+	//pPlayer->AddPlayerMana(this);
+	//m_pManaSprite->TurnOff();
 	UTIL_Remove(this);
 
 	return;
@@ -56,6 +60,7 @@ void CItemMana::Touch(CBaseEntity* pOther)
 void CItemMana::Spawn()
 {
 	Precache(); // this needs to be the first thing we do because non-precached resources will cause a terminating server error and disconnect the client
+
 	if (SpawnerMode == true)
 	{
 		UTIL_SetOrigin(pev, pev->origin);
@@ -65,7 +70,8 @@ void CItemMana::Spawn()
 		return;
 	}
 
-	m_pManaSprite = CSprite::SpriteCreate("sprites/flare6.spr", pev->origin, true);
+	//m_pManaSprite = CSprite::SpriteCreate("sprites/flare6.spr", pev->origin, true);
+	SET_MODEL(edict(), "sprites/flare6.spr");
 
 	// Admer456 has informed me these statements are not necessary because the Touch and Think functions
 	// is already override in the CItemMana class declaration.
@@ -77,7 +83,20 @@ void CItemMana::Spawn()
 	pev->movetype = MOVETYPE_FLY;
 	pev->solid = SOLID_TRIGGER;
 
-	m_pManaSprite->pev->rendermode = kRenderTransAdd;
+	if (m_eManaType == e_Mana_Red)
+		pev->rendercolor = Vector(255, 0, 0);
+	else if (m_eManaType == e_Mana_Orange)
+		pev->rendercolor = Vector(255, 128, 0);
+	else if (m_eManaType == e_Mana_Yellow)
+		pev->rendercolor = Vector(255, 255, 0);
+	else if (m_eManaType == e_Mana_Green)
+		pev->rendercolor = Vector(0, 255, 0);
+	else if (m_eManaType == e_Mana_Blue)
+		pev->rendercolor = Vector(0, 128, 255);
+	else
+		;
+
+	/* m_pManaSprite->pev->rendermode = kRenderTransAdd;
 	m_pManaSprite->pev->renderfx = kRenderFxNone;
 	//pev->effects ^= EF_BRIGHTLIGHT; // use XOR for effects
 	m_pManaSprite->SetBrightness(255);
@@ -97,8 +116,8 @@ void CItemMana::Spawn()
 	else
 		m_pManaSprite->SetTransparency(m_pManaSprite->pev->rendermode, 255, 255, 255, 255, m_pManaSprite->pev->renderfx); // wrong color
 	
-	m_pManaSprite->TurnOn();
-
+	//m_pManaSprite->TurnOn();
+	*/
 	return;
 }
 

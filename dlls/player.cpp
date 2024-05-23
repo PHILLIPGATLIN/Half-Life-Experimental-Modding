@@ -3724,43 +3724,43 @@ bool CBasePlayer::AddPlayerItem(CBasePlayerItem* pItem)
 	return false;
 }
 
-void CBasePlayer::AddPlayerMana(CItemMana* pMana)
+void CBasePlayer::AddPlayerMana(t_Mana ManaType)
 {
 	// add the mana to the player and then tell the client how much mana they have
-	switch (pMana->m_eManaType)
+	switch (ManaType)
 	{
 	case e_Mana_Red:
-			m_uiManaRed += 1;
+			(m_uiManaRed <= 99) ? m_uiManaRed += 1 : m_uiManaRed;
 			MESSAGE_BEGIN(MSG_ONE, gmsgManaGet, NULL, pev);
-			WRITE_BYTE((int)pMana->m_eManaType);
+			WRITE_BYTE((int)ManaType);
 			WRITE_SHORT(m_uiManaRed);
 			MESSAGE_END();
 			break;
 		case e_Mana_Orange:
-			m_uiManaOrange += 1;
+			(m_uiManaOrange <= 99) ? m_uiManaOrange += 1 : m_uiManaOrange;
 			MESSAGE_BEGIN(MSG_ONE, gmsgManaGet, NULL, pev);
-			WRITE_BYTE((int)pMana->m_eManaType);
+			WRITE_BYTE((int)ManaType);
 			WRITE_SHORT(m_uiManaOrange);
 			MESSAGE_END();
 			break;
 		case e_Mana_Yellow:
-			m_uiManaYellow += 1;
+			(m_uiManaYellow <=99) ? m_uiManaYellow += 1 : m_uiManaOrange;
 			MESSAGE_BEGIN(MSG_ONE, gmsgManaGet, NULL, pev);
-			WRITE_BYTE((int)pMana->m_eManaType);
+			WRITE_BYTE((int)ManaType);
 			WRITE_SHORT(m_uiManaYellow);
 			MESSAGE_END();
 			break;
 		case e_Mana_Green:
-			m_uiManaGreen += 1;
+			(m_uiManaGreen <= 99) ? m_uiManaGreen += 1 : m_uiManaGreen;
 			MESSAGE_BEGIN(MSG_ONE, gmsgManaGet, NULL, pev);
-			WRITE_BYTE((int)pMana->m_eManaType);
+			WRITE_BYTE((int)ManaType);
 			WRITE_SHORT(m_uiManaGreen);
 			MESSAGE_END();
 			break;
 		case e_Mana_Blue:
-			m_uiManaBlue += 1;
+			(m_uiManaBlue <= 99) ? m_uiManaBlue += 1 : m_uiManaBlue;
 			MESSAGE_BEGIN(MSG_ONE, gmsgManaGet, NULL, pev);
-			WRITE_BYTE((int)pMana->m_eManaType);
+			WRITE_BYTE((int)ManaType);
 			WRITE_SHORT(m_uiManaBlue);
 			MESSAGE_END();
 			break;

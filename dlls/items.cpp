@@ -29,6 +29,9 @@
 #include "items.h"
 #include "gamerules.h"
 #include "UserMessages.h"
+#include "effects.h"
+
+#include "mod/manatypes.h"
 
 class CWorldItem : public CBaseEntity
 {
@@ -337,3 +340,213 @@ class CItemLongJump : public CItem
 };
 
 LINK_ENTITY_TO_CLASS(item_longjump, CItemLongJump);
+
+// 22 May 2024 - PG
+// they need some kind of visual representation, and sprites just won't do
+class CItemManaRed : public CItem
+{
+	const t_Mana m_eType = e_Mana_Red;
+
+	void Precache() override
+	{
+		PRECACHE_MODEL("sprites/flare6.spr");
+		PRECACHE_SOUND("fvox/blip.wav");
+
+		return;
+	}
+
+	void Spawn() override
+	{
+		Precache();
+
+		CItem::Spawn();
+
+		SET_MODEL(ENT(pev), "sprites/flare6.spr");
+		pev->movetype = MOVETYPE_FLY;
+		pev->rendermode = kRenderTransAdd;
+		pev->renderamt = 255;
+		pev->renderfx = kRenderFxNone;
+		pev->rendercolor = Vector(255,0,0);
+
+		return;
+	}
+
+	bool MyTouch(CBasePlayer* pPlayer) override
+	{
+		if (pPlayer->IsPlayer() == false)
+			return false;
+
+		EMIT_SOUND(edict(), CHAN_ITEM, "fvox/blip.wav",1,ATTN_NORM);
+		pPlayer->AddPlayerMana(m_eType);
+
+		return true;
+	}
+
+};
+
+class CItemManaOrange : public CItem
+{
+	const t_Mana m_eType = e_Mana_Orange;
+
+	void Precache() override
+	{
+		PRECACHE_MODEL("sprites/flare6.spr");
+		PRECACHE_SOUND("fvox/blip.wav");
+
+		return;
+	}
+
+	void Spawn() override
+	{
+		Precache();
+
+		CItem::Spawn();
+
+		SET_MODEL(ENT(pev), "sprites/flare6.spr");
+		pev->movetype = MOVETYPE_FLY;
+		pev->rendermode = kRenderTransAdd;
+		pev->renderamt = 255;
+		pev->renderfx = kRenderFxNone;
+		pev->rendercolor = Vector(255, 128, 0);
+
+		return;
+	}
+
+	bool MyTouch(CBasePlayer* pPlayer) override
+	{
+		if (pPlayer->IsPlayer() == false)
+			return false;
+
+		EMIT_SOUND(edict(), CHAN_ITEM, "fvox/blip.wav", 1, ATTN_NORM);
+		pPlayer->AddPlayerMana(m_eType);
+
+		return true;
+	}
+};
+
+class CItemManaYellow : public CItem
+{
+	const t_Mana m_eType = e_Mana_Yellow;
+
+	void Precache() override
+	{
+		PRECACHE_MODEL("sprites/flare6.spr");
+		PRECACHE_SOUND("fvox/blip.wav");
+
+		return;
+	}
+
+	void Spawn() override
+	{
+		Precache();
+
+		CItem::Spawn();
+
+		SET_MODEL(ENT(pev), "sprites/flare6.spr");
+		pev->movetype = MOVETYPE_FLY;
+		pev->rendermode = kRenderTransAdd;
+		pev->renderamt = 255;
+		pev->renderfx = kRenderFxNone;
+		pev->rendercolor = Vector(255, 255, 0);
+
+		return;
+	}
+
+	bool MyTouch(CBasePlayer* pPlayer) override
+	{
+		if (pPlayer->IsPlayer() == false)
+			return false;
+
+		EMIT_SOUND(edict(), CHAN_ITEM, "fvox/blip.wav", 1, ATTN_NORM);
+		pPlayer->AddPlayerMana(m_eType);
+
+		return true;
+	}
+};
+
+class CItemManaGreen : public CItem
+{
+	const t_Mana m_eType = e_Mana_Green;
+
+	void Precache() override
+	{
+		PRECACHE_MODEL("sprites/flare6.spr");
+		PRECACHE_SOUND("fvox/blip.wav");
+
+		return;
+	}
+
+	void Spawn() override
+	{
+		Precache();
+
+		CItem::Spawn();
+
+		SET_MODEL(ENT(pev), "sprites/flare6.spr");
+		pev->movetype = MOVETYPE_FLY;
+		pev->rendermode = kRenderTransAdd;
+		pev->renderamt = 255;
+		pev->renderfx = kRenderFxNone;
+		pev->rendercolor = Vector(0, 255, 0);
+
+		return;
+	}
+
+	bool MyTouch(CBasePlayer* pPlayer) override
+	{
+		if (pPlayer->IsPlayer() == false)
+			return false;
+
+		EMIT_SOUND(edict(), CHAN_ITEM, "fvox/blip.wav", 1, ATTN_NORM);
+		pPlayer->AddPlayerMana(m_eType);
+
+		return true;
+	}
+};
+
+class CItemManaBlue : public CItem
+{
+	const t_Mana m_eType = e_Mana_Blue;
+
+	void Precache() override
+	{
+		PRECACHE_MODEL("sprites/flare6.spr");
+		PRECACHE_SOUND("fvox/blip.wav");
+
+		return;
+	}
+
+	void Spawn() override
+	{
+		Precache();
+
+		CItem::Spawn();
+
+		SET_MODEL(ENT(pev), "sprites/flare6.spr");
+		pev->movetype = MOVETYPE_FLY;
+		pev->rendermode = kRenderTransAdd;
+		pev->renderamt = 255;
+		pev->renderfx = kRenderFxNone;
+		pev->rendercolor = Vector(0, 128, 255);
+
+		return;
+	}
+
+	bool MyTouch(CBasePlayer* pPlayer) override
+	{
+		if (pPlayer->IsPlayer() == false)
+			return false;
+
+		EMIT_SOUND(edict(), CHAN_ITEM, "fvox/blip.wav", 1, ATTN_NORM);
+		pPlayer->AddPlayerMana(m_eType);
+
+		return true;
+	}
+};
+
+LINK_ENTITY_TO_CLASS(item_mana_red, CItemManaRed);
+LINK_ENTITY_TO_CLASS(item_mana_orange, CItemManaOrange);
+LINK_ENTITY_TO_CLASS(item_mana_yellow, CItemManaYellow);
+LINK_ENTITY_TO_CLASS(item_mana_green, CItemManaGreen);
+LINK_ENTITY_TO_CLASS(item_mana_blue, CItemManaBlue);
+// 22 May 2024 - PG

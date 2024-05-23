@@ -292,7 +292,7 @@ public:
 	void AddPoints(int score, bool bAllowNegativeScore) override;
 	void AddPointsToTeam(int score, bool bAllowNegativeScore) override;
 	bool AddPlayerItem(CBasePlayerItem* pItem) override;
-	void AddPlayerMana(CItemMana* pMana); // 8 January 2024 added by Phillip Gatlin aka The White Lion
+	void AddPlayerMana(t_Mana ManaType); // 8 January 2024 added by Phillip Gatlin aka The White Lion
 	void SendTitleName(char* textTitle); // 22 January 2024 PG
 	bool RemovePlayerItem(CBasePlayerItem* pItem) override;
 	void DropPlayerItem(char* pszItemName);
