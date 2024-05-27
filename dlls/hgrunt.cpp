@@ -135,6 +135,7 @@ public:
 	void SetActivity(Activity NewActivity) override;
 	void StartTask(Task_t* pTask) override;
 	void RunTask(Task_t* pTask) override;
+	void Killed(entvars_t* pevAttacker, int iGib) override;
 	void DeathSound() override;
 	void PainSound() override;
 	void IdleSound() override;
@@ -1076,6 +1077,9 @@ void CHGrunt::Precache()
 
 	m_iBrassShell = PRECACHE_MODEL("models/shell.mdl"); // brass shell
 	m_iShotgunShell = PRECACHE_MODEL("models/shotgunshell.mdl");
+
+	PRECACHE_MODEL("sprites/flare6.spr");
+	PRECACHE_SOUND("fvox/blip.wav");
 }
 
 //=========================================================
@@ -1196,6 +1200,25 @@ void CHGrunt::PainSound()
 
 		m_flNextPainTime = gpGlobals->time + 1;
 	}
+}
+
+void CHGrunt::Killed(entvars_t* pevAttacker, int iGib)
+{
+	CSquadMonster::Killed(pevAttacker, iGib);
+
+	switch (RANDOM_LONG(1,2))
+	{
+	case 1:
+		Create("item_mana_green", pev->origin + (pev->maxs / 2), pev->angles);
+		break;
+	case 2:
+		Create("item_mana_orange", pev->origin + (pev->maxs / 2), pev->angles);
+		break;
+	default:
+		break;
+	}
+
+	return;
 }
 
 //=========================================================

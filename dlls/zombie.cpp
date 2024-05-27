@@ -47,6 +47,7 @@ public:
 	float m_flNextFlinch;
 
 	void PainSound() override;
+	void Killed(entvars_t* pevAttacker, int iGib) override;
 	void AlertSound() override;
 	void IdleSound() override;
 	void AttackSound();
@@ -158,6 +159,15 @@ void CZombie::PainSound()
 
 	if (RANDOM_LONG(0, 5) < 2)
 		EMIT_SOUND_DYN(ENT(pev), CHAN_VOICE, RANDOM_SOUND_ARRAY(pPainSounds), 1.0, ATTN_NORM, 0, pitch);
+}
+
+void CZombie::Killed(entvars_t* pevAttacker, int iGib)
+{
+	CBaseMonster::Killed(pevAttacker, iGib);
+
+	Create("item_mana_red", pev->origin + (pev->maxs / 2), pev->angles);
+
+	return;
 }
 
 void CZombie::AlertSound()
@@ -301,6 +311,8 @@ void CZombie::Precache()
 	PRECACHE_SOUND_ARRAY(pIdleSounds);
 	PRECACHE_SOUND_ARRAY(pAlertSounds);
 	PRECACHE_SOUND_ARRAY(pPainSounds);
+	PRECACHE_MODEL("sprites/flare6.spr");
+	PRECACHE_SOUND("fvox/blip.wav");
 }
 
 //=========================================================

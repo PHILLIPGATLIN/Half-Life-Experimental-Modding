@@ -586,6 +586,22 @@ void HUD_WeaponsPostThink(local_state_s* from, local_state_s* to, usercmd_t* cmd
 	case WEAPON_SNARK:
 		pWeapon = &g_Snark;
 		break;
+
+	case WEAPON_MRED:
+		break;
+
+	case WEAPON_MORANGE:
+		break;
+
+	case WEAPON_MYELLOW:
+		break;
+
+	case WEAPON_MGREEN:
+		break;
+
+	case WEAPON_MBLUE:
+		break;
+
 	}
 
 	// Store pointer to our destination entity_state_t so we can get our origin, etc. from it

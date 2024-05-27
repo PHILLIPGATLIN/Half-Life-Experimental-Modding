@@ -198,6 +198,7 @@ public:
 	void IdleSound() override;
 	void PainSound() override;
 	void DeathSound() override;
+	void Killed(entvars_t* pevAttacker, int iGib) override;
 	void AlertSound() override;
 	void AttackSound();
 	void StartTask(Task_t* pTask) override;
@@ -740,6 +741,9 @@ void CBullsquid::Precache()
 
 	PRECACHE_SOUND("bullchicken/bc_spithit1.wav");
 	PRECACHE_SOUND("bullchicken/bc_spithit2.wav");
+
+	PRECACHE_MODEL("sprites/flare6.spr");
+	PRECACHE_SOUND("fvox/blip.wav");
 }
 
 //=========================================================
@@ -759,6 +763,25 @@ void CBullsquid::DeathSound()
 		EMIT_SOUND(ENT(pev), CHAN_VOICE, "bullchicken/bc_die3.wav", 1, ATTN_NORM);
 		break;
 	}
+}
+
+void CBullsquid::Killed(entvars_t* pevAttacker, int iGib)
+{
+	CBaseMonster::Killed(pevAttacker, iGib);
+
+	switch (RANDOM_LONG(1,2))
+	{
+	case 1:
+		Create("item_mana_orange", pev->origin + (pev->maxs / 2), pev->angles);
+		break;
+	case 2:
+		Create("item_mana_green", pev->origin + (pev->maxs / 2), pev->angles);
+		break;
+	defeault:
+		break;
+	}
+
+	return;
 }
 
 //=========================================================

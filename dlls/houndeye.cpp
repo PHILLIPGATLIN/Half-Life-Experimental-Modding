@@ -83,6 +83,7 @@ public:
 	void WarmUpSound();
 	void AlertSound() override;
 	void DeathSound() override;
+	void Killed(entvars_t* pevAttacker, int iGib) override;
 	void WarnSound();
 	void PainSound() override;
 	void IdleSound() override;
@@ -383,6 +384,9 @@ void CHoundeye::Precache()
 	PRECACHE_SOUND("houndeye/he_blast3.wav");
 
 	m_iSpriteTexture = PRECACHE_MODEL("sprites/shockwave.spr");
+
+	PRECACHE_MODEL("sprites/flare6.spr");
+	PRECACHE_SOUND("fvox/blip.wav");
 }
 
 //=========================================================
@@ -481,6 +485,23 @@ void CHoundeye::DeathSound()
 		EMIT_SOUND(ENT(pev), CHAN_VOICE, "houndeye/he_die3.wav", 1, ATTN_NORM);
 		break;
 	}
+}
+
+void CHoundeye::Killed(entvars_t* pevAttacker, int iGib)
+{
+	CSquadMonster::Killed(pevAttacker, iGib);
+
+	switch (RANDOM_LONG(1, 2))
+	{
+	case 1:
+		Create("item_mana_yellow", pev->origin + (pev->maxs / 2), pev->angles);
+		break;
+	case 2:
+		Create("item_mana_blue", pev->origin + (pev->maxs / 2), pev->angles);
+		break;
+	}
+
+	return;
 }
 
 //=========================================================

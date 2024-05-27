@@ -54,11 +54,10 @@ public:
 	bool TakeDamage(entvars_t* pevInflictor, entvars_t* pevAttacker, float flDamage, int bitsDamageType) override;
 
 	void DeathSound() override;
+	void Killed(entvars_t* pevAttacker, int iGib) override;
 	void PainSound() override;
 	void AlertSound() override;
 	void IdleSound() override;
-
-	void Killed(entvars_t* pevAttacker, int iGib) override;
 
 	void StartTask(Task_t* pTask) override;
 	Schedule_t* GetSchedule() override;
@@ -270,6 +269,16 @@ void CISlave::Killed(entvars_t* pevAttacker, int iGib)
 {
 	ClearBeams();
 	CSquadMonster::Killed(pevAttacker, iGib);
+
+	switch (RANDOM_LONG(1, 2))
+	{
+	case 1:
+		Create("item_mana_green", pev->origin + (pev->maxs / 2), pev->angles);
+		break;
+	case 2:
+		Create("item_mana_blue", pev->origin + (pev->maxs / 2), pev->angles);
+		break;
+	}
 }
 
 //=========================================================
@@ -562,6 +571,9 @@ void CISlave::Precache()
 	PRECACHE_SOUND_ARRAY(pDeathSounds);
 
 	UTIL_PrecacheOther("test_effect");
+
+	PRECACHE_MODEL("sprites/flare6.spr");
+	PRECACHE_SOUND("fvox/blip.wav");
 }
 
 

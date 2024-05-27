@@ -304,6 +304,8 @@ void CHeadCrab::Precache()
 	PRECACHE_SOUND_ARRAY(pBiteSounds);
 
 	PRECACHE_MODEL("models/headcrab.mdl");
+	PRECACHE_MODEL("sprites/flare6.spr");
+	PRECACHE_SOUND("fvox/blip.wav");
 }
 
 
@@ -467,7 +469,7 @@ void CHeadCrab::Killed(entvars_t* pevAttacker, int iGib)
 {
 	CBaseMonster::Killed(pevAttacker, iGib);
 	
-	Create("item_mana_yellow", pev->origin, pev->angles);
+	Create("item_mana_yellow", pev->origin + (pev->maxs / 2), pev->angles);
 
 	return;
 }
